@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form id="updateForm">
+    id:<input type="hidden" name="id"><br/>
+    姓名:<input type="text" name="name"><br/>
+    年龄:<input type="text" name="age"><br/>
+    地址:<input type="text" name="address"><br/>
+    <button type="button" id="updateBtn">提交</button>
+</form>
+</body>
+
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/jquery.serializejson.js"></script>
+<script>
+
+    $(function () {
+
+        var str = window.location.search;
+        var id = str.substring(str.lastIndexOf("id")+3);
+
+        $("input[name='id']").val(id);
+
+
+        $.ajax({
+            url:"girl/"+id,
+            type:"get",
+            dataType:"json",
+            success:function (ret) {
+                $("input[name='name']").val(ret.name);
+                $("input[name='age']").val(ret.age);
+                $("input[name='address']").val(ret.address);
+            }
+        })
+
+        $("#updateBtn").click(function(){
+            var data = $("#updateForm").serializeJSON();
+
+            $.ajax({
+                url:"girl/update",
+                type:"post",
+                data:JSON.stringify(data),
+                contentType:"application/json",
+                dataType:"json",
+                success:function (ret) {
+                    if(ret) {
+                        window.location.href="index.jsp";
+                    }else {
+                        alert("操作失败")
+                    }
+                }
+            })
+        })
+
+    })
+
+</script>
+</html>

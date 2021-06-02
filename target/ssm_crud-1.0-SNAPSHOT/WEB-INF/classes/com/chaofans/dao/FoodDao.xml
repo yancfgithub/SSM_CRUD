@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaofans.dao.FoodDao">
+
+    <!--List<Food> selectAll();-->
+    <select id="selectAll" resultType="com.chaofans.pojo.Food">
+        select * from food
+    </select>
+
+    <!--Food selectFoodById(Integer id);-->
+    <select id="selectFoodById" parameterType="java.lang.Integer" resultType="com.chaofans.pojo.Food">
+        select * from food where fid = #{fid}
+    </select>
+
+
+    <!--Integer insertFood(Food food);-->
+    <insert id="insertFood" parameterType="com.chaofans.pojo.Food">
+        insert into food(fname) values (#{fname})
+    </insert>
+
+    <!--Integer updateFood(Food food);-->
+    <update id="updateFood" parameterType="com.chaofans.pojo.Food">
+        update girl set fname = #{fname} where fid =#{fid}
+    </update>
+
+    <!--Integer deleteFood(Integer id);-->
+    <delete id="deleteFood" parameterType="java.lang.Integer">
+        delete from food where fid = #{fid}
+    </delete>
+</mapper>
+

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaofans.dao.GirlDao">
+
+    <!--List<Girl> findAll();-->
+    <select id="findAll" resultType="com.chaofans.pojo.Girl">
+        select * from girl
+    </select>
+
+    <!--Girl findById(Integer id);-->
+    <select id="findById" parameterType="java.lang.Integer" resultType="com.chaofans.pojo.Girl">
+        select * from girl where id = #{id}
+    </select>
+
+    <!--List<Girl> findByGirlQuery(Girl girl);-->
+    <select id="findByGirlQuery" parameterType="com.chaofans.pojo.Girl" resultType="com.chaofans.pojo.Girl">
+        select * from girl
+        <where>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="age != null and age != ''">
+                and age = #{age}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+        </where>
+    </select>
+
+    <!--Integer insertGirl(Girl girl);-->
+    <insert id="insertGirl" parameterType="com.chaofans.pojo.Girl">
+        insert into girl(name, age, address) values(#{name}, #{age}, #{address})
+    </insert>
+
+    <!--Integer updateGirl(Girl girl);-->
+    <update id="updateGirl" parameterType="com.chaofans.pojo.Girl">
+        update girl
+        <set>
+            <if test="name != null and name != ''">
+                 name = #{name},
+            </if>
+            <if test="age != null and age != ''">
+                 age = #{age},
+            </if>
+            <if test="address != null and address != ''">
+                 address = #{address},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--Integer deleteGirl(integer id);-->
+    <delete id="deleteGirl" parameterType="java.lang.Integer">
+        delete from girl where id = #{id}
+    </delete>
+</mapper>
+
